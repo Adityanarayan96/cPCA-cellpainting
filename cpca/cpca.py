@@ -15,6 +15,39 @@ logger = logging.getLogger(__name__)
 class ContrastivePCA:
     """
     Version 1.0.0
+
+    Class to perform contrastive PCA (custom written)
+
+    Attributes:
+    ===========
+    data_path: Path to dataframe
+    grid: If True uses grid_search and silhouette score to set attributes; Currently not implemented
+    alpha: contrastive_hyperparameter
+    num_components: number of components of eigenvector to retain; Will generalise to a softer weight vector soon
+
+    Methods:
+    ========
+    contrast(self, column: str, controls: List[str], output_path: str) -> None
+        Aggregates all methods required for cPCA
+    -----------
+    extract_controls(self, column: str, controls: List[str]) -> Tuple[pd.Index, pd.Index]
+        Extracts controls indices and target indices, Extract the datapoints corresponding to the controls, manually set
+    ----------- 
+    compute_covariances(self, target_indices: pd.Index, control_indices: pd.Index) ->  Tuple[np.ndarray, np.ndarray]
+        Compute the covariance matrices of targets, len(feat) x len(feat)
+    -----------
+    compute_contrastivePCA(self, target_covariance: np.ndarray, control_covariance: np.ndarray) -> np.ndarray
+        Performs Eigen decomposition on contrastive function target_covariance - alpha*control_covariance
+    -----------
+    project_data(self, basis: np.ndarray) -> pd.DataFrame:
+        Project entire data on truncated eigenvectors
+    -----------
+
+    Future:
+    =======
+
+    1) Upgrade to have option to use grid_search on random subset to select alpha and num_components, including plotting
+    2) Add a softer weighing scheme to components, instead of hard num_components cut-off
     
     """
 
@@ -27,7 +60,7 @@ class ContrastivePCA:
         grid: True if alpha, num_components set using grid search of silhoutte scores, update to true after grid search is implemented
         alpha : contrastive constant, can be set or found through grid search
         num_components : number of components to retain, will update to weights in the future, can be set or found through grid search
-        data_path: path to dataframe.parquet, initialised as df, must be preprocessed (centered and standardized)
+        data_path: path to dataframe.parquet, initialised as df, must be preprocessed (centered and standardized
         """
 
         self.alpha = alpha
