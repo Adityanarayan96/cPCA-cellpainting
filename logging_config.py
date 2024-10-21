@@ -36,3 +36,15 @@ def setup_logging():
     }
 
     logging.config.dictConfig(log_config)
+
+import functools
+
+# Define a decorator to log method calls
+def log_method_call(func):
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwargs):
+        print(f"Calling {func.__name__} with args: {args} and kwargs: {kwargs}")
+        result = func(self, *args, **kwargs)
+        print(f"{func.__name__} returned {result}")
+        return result
+    return wrapper
