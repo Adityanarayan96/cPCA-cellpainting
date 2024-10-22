@@ -51,7 +51,7 @@ def silhouette_batch(data_path: str, column: str, metric: str="cosine", filter_D
 
 
 @log_method_call
-def silhouette(df: pd.Dataframe, column: str, metric: str="cosine") -> float:
+def silhouette(df: pd.DataFrame, column: str, metric: str="cosine") -> float:
     """
     Calculates the silhouette score according to column indicated
 
