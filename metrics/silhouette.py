@@ -43,6 +43,10 @@ def silhouette_batch(data_path: str, label_column: str, batch_column: str, metri
     float
         Inverse Normalised Silhoutte batch score
 
+    Future:
+    ========
+    Need to add logic to control for uni batchees or missing batches, currently throws error
+
     """
     df = pd.read_parquet(data_path)
     if filter_DMSO:
