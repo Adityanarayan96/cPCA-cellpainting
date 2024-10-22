@@ -3,13 +3,13 @@ from sklearn.metrics import silhouette_score
 from logging_config import log_method_call
 import numpy as np
 
-def silhouette_label(data_path: str, column: str, metric: str="cosine", filter_DMSO: bool=True) -> float:
+def silhouette_label(df: pd.DataFrame, column: str, metric: str="cosine", filter_DMSO: bool=True) -> float:
     """
     Calculates the normalised Silhouette label score using the silhouette function
 
     Parameters:
     ===========
-    data_path: data_path: Path to dataframe.parquet
+    df: Dataframe to calculate score on
     column: Label column for cluster assingment, typically compound or genes
     metric: Metric used to calculate Silhouette score
     filter_DMSO: Filter DMSO controls, default is True
@@ -20,19 +20,19 @@ def silhouette_label(data_path: str, column: str, metric: str="cosine", filter_D
         Normalised Silhoutte label score
 
     """
-    df = pd.read_parquet(data_path)
+    # df = pd.read_parquet(data_path)
     if filter_DMSO:
         df = df[df[column]!="DMSO"]
     
     return silhouette(df, column, metric=metric)
 
-def silhouette_batch(data_path: str, label_column: str, batch_column: str, metric: str="cosine", filter_DMSO: bool=True) -> float:
+def silhouette_batch(df: pd.DataFrame, label_column: str, batch_column: str, metric: str="cosine", filter_DMSO: bool=True) -> float:
     """
     Calculates the inverse normalised Silhouette batch score using the silhouette function
 
     Parameters:
     ===========
-    data_path: data_path: Path to dataframe.parquet
+    df: Dataframe to calculate score on
     label_column: Label column, used for filtering
     batch_column: Batch column for cluster assignment, typically source, batch or plates
     metric: Metric used to calculate Silhouette score
@@ -48,7 +48,7 @@ def silhouette_batch(data_path: str, label_column: str, batch_column: str, metri
     Need to add logic to control for uni batchees or missing batches, currently throws error
 
     """
-    df = pd.read_parquet(data_path)
+    # df = pd.read_parquet(data_path)
     if filter_DMSO:
         df = df[df[label_column]!="DMSO"]
     
