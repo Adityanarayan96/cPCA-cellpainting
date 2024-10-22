@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.metrics import silhouette_score
 from logging_config import log_method_call
+import numpy as np
 
 def silhouette_label(data_path: str, column: str, metric: str="cosine", filter_DMSO: bool=True) -> float:
     """
@@ -47,7 +48,9 @@ def silhouette_batch(data_path: str, label_column: str, batch_column: str, metri
     if filter_DMSO:
         df = df[df[label_column]!="DMSO"]
     
-    return (1 - silhouette(df, batch_column, metric=metric))
+    # For batch need to average by compound and calculate silhoutte score for each batch
+    scores = np.array([1 - np.abs(silhouette(df[df[label_column]==label], batch_column)*2 - 1) for label in df[label_column].unique()])
+    return np.mean(scores)
 
 
 
