@@ -28,11 +28,11 @@ This repository contains a custom implementation of **Contrastive Principal Comp
 git clone <repository_url>
 cd <repository_directory>
 ```
-	2.	Install dependencies using the requirements.txt file:
+2.	Install dependencies using the requirements.txt file:
 ```bash
 pip install -r requirements.txt
 ```
-	3.	Ensure your data is preprocessed (centered and standardized) and stored as a .parquet file before using the class.
+3.	Ensure your data is preprocessed (centered and standardized) and stored as a .parquet file before using the class.
 
 **Usage**
 
