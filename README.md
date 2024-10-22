@@ -1,5 +1,3 @@
-Here’s a streamlined version of your README.md that you can copy and paste, including both the cPCA description and instructions for generating the requirements.txt file, without added descriptions of functions:
-
 # Contrastive PCA (cPCA) - Version 1.0.0
 
 This repository contains a custom implementation of **Contrastive Principal Component Analysis (cPCA)**, an unsupervised learning technique that enhances traditional PCA by contrasting the variance in a target dataset against a control dataset. The implementation provides a flexible framework for users to input their data, configure parameters, and run the analysis.
