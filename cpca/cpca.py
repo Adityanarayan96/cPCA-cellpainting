@@ -106,6 +106,33 @@ class ContrastivePCA:
 
         # Save to output path
         df_projected.to_parquet(output_path)
+
+    @log_method_call
+    def contrast_no_save(self, column: str, controls: List[str]) -> None:
+        """
+        Computes contrastive PCA and returns of entire df (contrasts and targets).
+        This function calls many external functions listed below
+        # Fill with function calls
+
+        Parameters:
+        ===========
+
+        Returns:
+        ========
+        Dataframe
+        """
+
+        # Extract controls from df
+        target_indices, control_indices = self.extract_controls(column, controls)
+
+        # Compute covariances from indices
+        target_cov, control_cov = self.compute_covariances(target_indices, control_indices)
+
+        # Contrast between target_cov and control_cov, retain only num_components
+        projection_basis = self.compute_contrastivePCA(target_cov, control_cov)
+
+        # Return Projection of df onto basis
+        return self.project_data(projection_basis)
     
     @log_method_call
     def extract_controls(self, column: str, controls: List[str]) -> Tuple[pd.Index, pd.Index]:
