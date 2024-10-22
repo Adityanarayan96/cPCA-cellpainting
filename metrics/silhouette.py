@@ -21,18 +21,19 @@ def silhouette_label(data_path: str, column: str, metric: str="cosine", filter_D
     """
     df = pd.read_parquet(data_path)
     if filter_DMSO:
-        df = df[df.columns[column]!="DMSO"]
+        df = df[df[column]!="DMSO"]
     
     return silhouette(df, column, metric=metric)
 
-def silhouette_batch(data_path: str, column: str, metric: str="cosine", filter_DMSO: bool=True) -> float:
+def silhouette_batch(data_path: str, label_column: str, batch_column: str, metric: str="cosine", filter_DMSO: bool=True) -> float:
     """
     Calculates the inverse normalised Silhouette batch score using the silhouette function
 
     Parameters:
     ===========
     data_path: data_path: Path to dataframe.parquet
-    column: Batch column for cluster assingment, typically source, batch or plates
+    label_column: Label column, used for filtering
+    batch_column: Batch column for cluster assignment, typically source, batch or plates
     metric: Metric used to calculate Silhouette score
     filter_DMSO: Filter DMSO controls, default is True
 
@@ -44,9 +45,9 @@ def silhouette_batch(data_path: str, column: str, metric: str="cosine", filter_D
     """
     df = pd.read_parquet(data_path)
     if filter_DMSO:
-        df = df[df.columns[column]!="DMSO"]
+        df = df[df[label_column]!="DMSO"]
     
-    return (1 - silhouette(df, column, metric=metric))
+    return (1 - silhouette(df, batch_column, metric=metric))
 
 
 
