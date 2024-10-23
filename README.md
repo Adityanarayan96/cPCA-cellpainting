@@ -57,8 +57,9 @@ To perform contrastive PCA and save the projected data:
 ```bash
 cpca.contrast(column="MetaLabel", controls=["Control1", "Control2"], output_path="path/to/output.parquet")
 ```
+
 Future Enhancements
 
-	1.	Automatic hyperparameter tuning: Integrate grid_search to find the optimal alpha and num_components based on silhouette scores.
-	2.	Softer component selection: Move from a hard cut-off for the number of components to a softer, weight-based selection.
-	3.	Visualization: Add plotting capabilities for easier interpretation of the projected data.
+1.	Automatic hyperparameter tuning: Integrate grid_search to find the optimal alpha and num_components based on silhouette scores.
+2.	Softer component selection: Move from a hard cut-off for the number of components to a softer, weight-based selection.
+3.	Visualization: Add plotting capabilities for easier interpretation of the projected data.
